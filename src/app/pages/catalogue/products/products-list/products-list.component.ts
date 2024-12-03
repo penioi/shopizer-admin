@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/quotes */
 import { Component, OnInit, SystemJsNgModuleLoader } from '@angular/core';
 import { ProductService } from '../services/product.service';
 import { LocalDataSource } from 'ng2-smart-table';
@@ -16,17 +17,17 @@ import { ListingService } from '../../../shared/services/listing.service';
 @Component({
   selector: 'ngx-products-list',
   templateUrl: './products-list.component.html',
-  styleUrls: ['./products-list.component.scss']
+  styleUrls: ['./products-list.component.scss'],
 })
 export class ProductsListComponent implements OnInit {
   products = [];
   source: LocalDataSource = new LocalDataSource();
   listingService: ListingService;
   loadingList = false;
-  loading: boolean = false;
+  loading = false;
   stores = [];
   isSuperadmin: boolean;
-  selectedStore: String = '';
+  selectedStore = '';
   // paginator
   perPage = 20;
   currentPage = 1;
@@ -45,9 +46,9 @@ export class ProductsListComponent implements OnInit {
     private translate: TranslateService,
     private storageService: StorageService,
     private toastr: ToastrService,
-    private router: Router
+    private router: Router,
   ) {
-    this.selectedStore = this.storageService.getMerchant()
+    this.selectedStore = this.storageService.getMerchant();
     this.isSuperadmin = this.storageService.getUserRoles().isSuperadmin;
     this.listingService = new ListingService();
   }
@@ -58,7 +59,7 @@ export class ProductsListComponent implements OnInit {
       lang: this.storageService.getLanguage(),
       count: this.perPage,
       origin: "admin", //does not load attributes in listing
-      page: 0
+      page: 0,
     };
   }
 
@@ -96,25 +97,11 @@ export class ProductsListComponent implements OnInit {
 
  }
 
-  /** callback methods for table list*/
-  private loadList(newParams: any) {
-    console.log(JSON.stringify(newParams));
-    this.currentPage = 1; //back to page 1
-    this.params = newParams;
-    this.fetchTableData();
-  }
-
-  private resetList() {
-    this.currentPage = 1;//back to page 1
-    this.params = this.loadParams();
-    this.getList();
-  }
-  /** */
 
   getStore() {
     this.storeService.getListOfStores({ code: 'DEFAULT' })
       .subscribe(res => {
-        let storeData = []
+        const storeData = [];
         res.data.forEach((store) => {
           storeData.push(store.code);
         });
@@ -140,36 +127,36 @@ export class ProductsListComponent implements OnInit {
         sort: true,
         custom: [
           { name: 'edit', title: '<i class="nb-edit"></i>' },
-          { name: 'remove', title: '<i class="nb-trash"></i>' }
+          { name: 'remove', title: '<i class="nb-trash"></i>' },
         ],
       },
       pager: {
-        display: false
+        display: false,
       },
       columns: {
         id: {
           title: this.translate.instant('COMMON.ID'),
           type: 'number',
           editable: false,
-          filter: false
+          filter: false,
         },
         sku: {
           title: this.translate.instant('PRODUCT.SKU'),
           type: 'string',
           editable: false,
-          filter: true
+          filter: true,
         },
         name: {
           title: this.translate.instant('PRODUCT.PRODUCT_NAME'),
           type: 'html',
           filter: true,
-          editable: false
+          editable: false,
         },
         quantity: {
           title: this.translate.instant('PRODUCT.QTY'),
           type: 'number',
           editable: true,
-          filter: false
+          filter: false,
         },
         available: {
           filter: false,
@@ -179,20 +166,20 @@ export class ProductsListComponent implements OnInit {
           defaultValue: false,
           editable: true,
           editor: {
-            type: 'checkbox'
-          }
+            type: 'checkbox',
+          },
         },
         price: {
           title: this.translate.instant('PRODUCT.PRICE'),
           type: 'string',
           editable: true,
-          filter: false
+          filter: false,
         },
         creationDate: {
           title: this.translate.instant('PRODUCT.CREATION_DATE'),
           type: 'string',
           editable: false,
-          filter: false
+          filter: false,
         },
       },
     };
@@ -202,7 +189,7 @@ export class ProductsListComponent implements OnInit {
     const product = {
       available: event.newData.available,
       price: event.newData.price,
-      quantity: event.newData.quantity
+      quantity: event.newData.quantity,
     };
     event.confirm.resolve(event.newData);
     this.productService.updateProductFromTable(event.newData.id, product)
@@ -261,10 +248,26 @@ export class ProductsListComponent implements OnInit {
     this.getList();
   }
   route(e) {
-    if (e.action == 'remove') {
-      this.deleteRecord(e)
+    if (e.action === 'remove') {
+      this.deleteRecord(e);
     } else {
       this.router.navigate(['pages/catalogue/products/product/' + e.data.id]);
     }
   }
+
+
+  /** callback methods for table list*/
+  private loadList(newParams: any) {
+    console.log(JSON.stringify(newParams));
+    this.currentPage = 1; //back to page 1
+    this.params = newParams;
+    this.fetchTableData();
+  }
+
+  private resetList() {
+    this.currentPage = 1;//back to page 1
+    this.params = this.loadParams();
+    this.getList();
+  }
+  /** */
 }

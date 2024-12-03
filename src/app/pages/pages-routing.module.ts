@@ -52,16 +52,16 @@ const routes: Routes = [{
     },
     {
       path: 'customer',
-      loadChildren: 'app/pages/customers/customer.module#CustomersModule'
+      loadChildren: 'app/pages/customers/customer.module#CustomersModule',
     },
     {
       path: 'error-500',
-      component: FiveHundredComponent
+      component: FiveHundredComponent,
     },
     {
       path: '',
       redirectTo: 'home',
-      pathMatch: 'full'
+      pathMatch: 'full',
     },
     {
       path: '**',

@@ -35,21 +35,22 @@ export class ProductService {
 
   getProductById(id): Observable<any> {
     const params = {
-      lang: '_all'
+      lang: '_all', //this.storageService.getLanguage(),
+      store: this.storageService.getMerchantName(),
     };
     return this.crudService.get(`/v1/product/${id}`, params);
   }
 
   getProductDefinitionById(id): Observable<any> {
     const params = {
-      lang: '_all'
+      lang: this.storageService.getLanguage()
     };
     return this.crudService.get(`/v2/private/product/definition/${id}`, params);
   }
 
   getProductDefinitionBySku(sku): Observable<any> {
     const params = {
-      lang: '_all'
+      lang: this.storageService.getLanguage()
     };
     return this.crudService.get(`/v2/product/${sku}`, params);
   }

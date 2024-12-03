@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/quotes */
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { VariationService } from '../services/variation.service';
@@ -64,11 +65,7 @@ export class VariationsListComponent implements OnInit {
             name: 'delete',
             title: '<i class="nb-trash"></i>'
           },
-          // {
-          //   name: 'delete',
-          //   title: '<i class="nb-info"></i>'
-          // }
-        ]
+        ],
       },
       columns: {
         id: {
@@ -86,20 +83,18 @@ export class VariationsListComponent implements OnInit {
           title: this.translate.instant('PRODUCT_ATTRIBUTES.OPTION_NAME'),
           type: 'string',
           filter: true,
-          valuePrepareFunction: (value) => {
-            return value.name;
-          }
+          valuePrepareFunction: (value) => value.name,
         },
         values: {
           title: this.translate.instant('COMPONENTS.OPTIONS_VALUE'),
           type: 'string',
           filter: false,
           valuePrepareFunction: (data) => {
-            if (data != null) {
-              let value = data.map(a => a.name).join(", ");
+            if (data) {
+              const value = data.map(a => a.name).join(", ");
               return value;
             }
-          }
+          },
         },
         // productTypes: {
         //   title: this.translate.instant('COMPONENTS.PRODUCT_TYPES'),
@@ -146,6 +141,6 @@ export class VariationsListComponent implements OnInit {
     }
   }
   onEdit(event) {
-    // this.router.navigate(['/pages/catalogue/options/option-set/' + event.data.id]);
+    this.router.navigate(['/pages/catalogue/options/option-set/' + event.data.id]);
   }
 }

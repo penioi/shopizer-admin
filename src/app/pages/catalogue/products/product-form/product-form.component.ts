@@ -63,7 +63,6 @@ export class ProductFormComponent implements OnInit {
       title: this.translate.instant('COMPONENTS.PRODUCT_TO_CATEGORY'),
       route: 'category',
       fragment: 'tabs',
-  
     },
     {
       title: this.translate.instant('COMPONENTS.OPTIONS_CONFIG'),
@@ -159,47 +158,6 @@ export class ProductFormComponent implements OnInit {
 
   }
 
-  private loadEvent() {
-    this.loading = true;
-    this.loaded = false;
-  }
-
-  private loadedEvent() {
-    this.loading = false;
-    this.loaded = true;
-  }
-
-  private createForm() {
-    this.form = this.fb.group({
-      sku: ['', [Validators.required, Validators.pattern(validators.alphanumeric)]],
-      visible: [false],
-      dateAvailable: [new Date()],
-      manufacturer: ['', [Validators.required]],
-      type: [''],
-      display: [true],
-      canBePurchased: [true],
-      timeBound: [false],
-      price: ['', [Validators.required]],
-      quantity: ['', [Validators.required, Validators.pattern(validators.number)]],
-      // discountedPrice: [Validators.pattern(validators.number)],
-      // percentageOff: [Validators.pattern(validators.number)],
-      // rebatePrice: [Validators.required, Validators.pattern(validators.number)],
-      // startDate: [new Date()],
-      // endDate: [new Date()],
-      sortOrder: ['', [Validators.required, Validators.pattern(validators.number)]],
-      // productShipeable: [false, [Validators.required]],
-      productSpecifications: this.fb.group({
-        weight: [''],
-        height: [''],
-        width: [''],
-        length: ['']
-      }),
-      // placementOrder: [0, [Validators.required]],  // ???
-      // taxClass: [0, [Validators.required]], // ???
-      selectedLanguage: [this.defaultLanguage, [Validators.required]],
-      descriptions: this.fb.array([]),
-    });
-  }
 
   addFormArray() {
     const control = <FormArray>this.form.controls.descriptions;
@@ -405,7 +363,7 @@ export class ProductFormComponent implements OnInit {
       name: '',
       friendlyUrl: '',
       title: '',
-      language: ''
+      language: '',
     };
     productObject.descriptions.forEach((el) => {
       tmpObj.language = el.language;
@@ -490,7 +448,7 @@ export class ProductFormComponent implements OnInit {
     this.router.navigate(['pages/catalogue/products/' + this.product.id + '/' + link]);
   }
   goToback() {
-    this.router.navigate(['pages/catalogue/products/products-list'])
+    this.router.navigate(['pages/catalogue/products/products-list']);
   }
   public findInvalidControls() {
     const invalid = [];
@@ -501,11 +459,10 @@ export class ProductFormComponent implements OnInit {
       }
     }
     if (invalid.length > 0) {
-      this.toastr.error(this.translate.instant('COMMON.FILL_REQUIRED_FIELDS') + " [" + invalid + " ]");
+      this.toastr.error(this.translate.instant('COMMON.FILL_REQUIRED_FIELDS') + ' [' + invalid + ' ]');
     }
     return invalid;
   }
-
 
 
   customButton(context) {
@@ -516,8 +473,7 @@ export class ProductFormComponent implements OnInit {
       tooltip: 'Gallery',
       container: '.note-editor',
       className: 'note-btn',
-      click: function () {
-        //console.log(me);
+      click: function() {
         me.dialogService.open(ImageBrowserComponent, {}).onClose.subscribe(name => name && context.invoke('editor.pasteHTML', '<img src="' + name + '">'));
       }
     });
@@ -526,4 +482,47 @@ export class ProductFormComponent implements OnInit {
   loadingTab(e) {
     this.tabLoader = e;
   }
+
+  private loadEvent() {
+    this.loading = true;
+    this.loaded = false;
+  }
+
+  private loadedEvent() {
+    this.loading = false;
+    this.loaded = true;
+  }
+
+  private createForm() {
+    this.form = this.fb.group({
+      sku: ['', [Validators.required, Validators.pattern(validators.alphanumeric)]],
+      visible: [false],
+      dateAvailable: [new Date()],
+      manufacturer: ['', [Validators.required]],
+      type: [''],
+      display: [true],
+      canBePurchased: [true],
+      timeBound: [false],
+      price: ['', [Validators.required]],
+      quantity: ['', [Validators.required, Validators.pattern(validators.number)]],
+      // discountedPrice: [Validators.pattern(validators.number)],
+      // percentageOff: [Validators.pattern(validators.number)],
+      // rebatePrice: [Validators.required, Validators.pattern(validators.number)],
+      // startDate: [new Date()],
+      // endDate: [new Date()],
+      sortOrder: ['', [Validators.required, Validators.pattern(validators.number)]],
+      // productShipeable: [false, [Validators.required]],
+      productSpecifications: this.fb.group({
+        weight: [''],
+        height: [''],
+        width: [''],
+        length: ['']
+      }),
+      // placementOrder: [0, [Validators.required]],  // ???
+      // taxClass: [0, [Validators.required]], // ???
+      selectedLanguage: [this.defaultLanguage, [Validators.required]],
+      descriptions: this.fb.array([]),
+    });
+  }
+
 }

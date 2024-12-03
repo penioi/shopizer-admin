@@ -19,6 +19,7 @@ import { ListingService } from '../../../shared/services/listing.service';
   styleUrls: ['./categories-list.component.scss']
 })
 export class CategoriesListComponent implements OnInit {
+
   source: LocalDataSource = new LocalDataSource();
   listingService: ListingService;
   loadingList = false;
@@ -60,19 +61,6 @@ export class CategoriesListComponent implements OnInit {
     };
   }
 
-    /** callback methods for table list*/
-    private loadList(newParams: any) {
-      this.currentPage = 1; //back to page 1
-      this.params = newParams;
-      this.fetchTableData();
-    }
-  
-    private resetList() {
-      this.currentPage = 1;//back to page 1
-      this.params = this.loadParams();
-      this.getList();
-    }
-    /** */
 
 
   ngOnInit() {
@@ -249,10 +237,25 @@ export class CategoriesListComponent implements OnInit {
       return;
     }
 
-    this.params["name"] = query;
+    this.params['name'] = query;
     this.getList();
     this.searchValue = query;
 
   }
 
+
+
+    /** callback methods for table list*/
+    private loadList(newParams: any) {
+      this.currentPage = 1; //back to page 1
+      this.params = newParams;
+      this.fetchTableData();
+    }
+  
+    private resetList() {
+      this.currentPage = 1;//back to page 1
+      this.params = this.loadParams();
+      this.getList();
+    }
+    /** */
 }

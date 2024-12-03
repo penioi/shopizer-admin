@@ -299,11 +299,25 @@ export const MENU_ITEMS: MenuItem[] = [
         hidden: false,
         guards: [IsSuperadmin, IsAdmin, IsAdminRetail, IsAdminCatalogue],
         children: [
-
           {
             title: 'PRODUCT_TYPE.PRODUCT_TYPE_LIST',
             key: 'PRODUCT_TYPE.PRODUCT_TYPE_LIST',
             link: '/pages/catalogue/types/types-list',
+            hidden: false,
+            guards: [IsSuperadmin, IsAdmin, IsAdminRetail, IsAdminCatalogue],
+          }
+        ]
+      },
+      {
+        title: 'COMPONENTS.ARCHIVE',
+        key: 'COMPONENTS.ARCHIVE',
+        hidden: false,
+        guards: [IsSuperadmin, IsAdmin, IsAdminRetail, IsAdminCatalogue],
+        children: [
+          {
+            title: 'COMPONENTS.ARCHIVE',
+            key: 'COMPONENTS.ARCHIVE',
+            link: '/pages/catalogue/archive/import-catalog-data',
             hidden: false,
             guards: [IsSuperadmin, IsAdmin, IsAdminRetail, IsAdminCatalogue],
           }

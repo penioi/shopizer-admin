@@ -5,7 +5,7 @@ import { ProductService } from '../services/product.service';
 @Component({
   selector: 'ngx-product-details',
   templateUrl: './product-details.component.html',
-  styleUrls: ['./product-details.component.scss']
+  styleUrls: ['./product-details.component.scss'],
 })
 export class ProductDetailsComponent implements OnInit {
   product: any = {};
@@ -26,7 +26,7 @@ export class ProductDetailsComponent implements OnInit {
   }
 
   route(link) {
-    this.router.navigate(['pages/catalogue/products/' + this.product.sku + '/' + link]);
+    this.router.navigate(['pages/catalogue/products/' + this.product.id + '/' + link]);
   }
 
 }

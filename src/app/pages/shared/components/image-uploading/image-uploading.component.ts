@@ -7,34 +7,34 @@ import {
   Output,
   SimpleChanges,
   ViewChild,
-} from "@angular/core";
+} from '@angular/core';
 
-import { CdkDropListGroup, CdkDragEnter, CdkDropList, CdkDragDrop, moveItemInArray } from "@angular/cdk/drag-drop";
+import { CdkDropListGroup, CdkDragEnter, CdkDropList, CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 
-import { ToastrService } from "ngx-toastr";
-import { TranslateService } from "@ngx-translate/core";
-import { HttpClient, HttpErrorResponse } from "@angular/common/http";
-import { ImageUploadingAdapter } from "./image-uploading-adapter";
+import { ToastrService } from 'ngx-toastr';
+import { TranslateService } from '@ngx-translate/core';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { ImageUploadingAdapter } from './image-uploading-adapter';
 import {
   FilePickerComponent,
   FilePreviewModel,
   UploaderCaptions,
   ValidationError,
-} from "ngx-awesome-uploader";
-import { Observable, of } from "rxjs";
-import { delay, map } from "rxjs/operators";
-import { Image } from "../../../shared/models/image";
-import { StoreService } from "../../../store-management/services/store.service";
+} from 'ngx-awesome-uploader';
+import { Observable, of } from 'rxjs';
+import { delay, map } from 'rxjs/operators';
+import { Image } from '../../../shared/models/image';
+import { StoreService } from '../../../store-management/services/store.service';
 import { ViewportRuler } from '@angular/cdk/overlay';
-import { UserService } from "../../../../@core/mock/users.service";
+import { UserService } from '../../../../@core/mock/users.service';
 
 @Component({
-  selector: "ngx-image-uploading",
-  templateUrl: "./image-uploading.component.html",
-  styleUrls: ["./image-uploading.component.scss"],
+  selector: 'ngx-image-uploading',
+  templateUrl: './image-uploading.component.html',
+  styleUrls: ['./image-uploading.component.scss'],
 })
 export class ImageUploadingComponent implements OnInit {
-  @ViewChild("uploader", { static: false }) uploader: FilePickerComponent;
+  @ViewChild('uploader', { static: false }) uploader: FilePickerComponent;
   @ViewChild(CdkDropListGroup) listGroup: CdkDropListGroup<CdkDropList>;
   @ViewChild(CdkDropList) placeholder: CdkDropList;
 
@@ -99,10 +99,10 @@ export class ImageUploadingComponent implements OnInit {
   }
 
   ngAfterViewInit() {
-    const phElement = this.placeholder.element.nativeElement;
+    // const phElement = this.placeholder.element.nativeElement;
 
-    phElement.style.display = 'none';
-    phElement.parentElement.removeChild(phElement);
+    // phElement.style.display = 'none';
+    // phElement.parentElement.removeChild(phElement);
   }
 
   dropListDropped() {
@@ -158,8 +158,8 @@ export class ImageUploadingComponent implements OnInit {
       dropElement
     );
 
-    console.log("drag::", dragIndex, dropIndex);
-    let newObj = { "id": this.images[dragIndex].id, "position": dropIndex + 1 }
+    console.log('drag::', dragIndex, dropIndex);
+    let newObj = { 'id': this.images[dragIndex].id, 'position': dropIndex + 1 }
     this.update.emit(newObj)
 
 
@@ -202,7 +202,7 @@ export class ImageUploadingComponent implements OnInit {
 
 
   errorImage(code) {
-    console.log("Error image " + code);
+    console.log('Error image ' + code);
     this.error.emit(code);
 
     //hide upload status
@@ -223,7 +223,7 @@ export class ImageUploadingComponent implements OnInit {
   }
 
   public onChangeimage(e: any): void {
-    console.log("function==>", e);
+    console.log('function==>', e);
 
   }
 
@@ -237,12 +237,12 @@ export class ImageUploadingComponent implements OnInit {
 
   /* remove success */
   public onRemoveSuccess(e: FilePreviewModel) {
-    console.log("Remove");
+    console.log('Remove');
     console.log(e);
   }
 
   public onFileAdded(file: FilePreviewModel) {
-    console.log("File added ", file);
+    console.log('File added ', file);
     this.fileAdded.emit(true);
     clearTimeout(this.timer);
   }

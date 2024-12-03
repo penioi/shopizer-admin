@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { LocalDataSource } from 'ng2-smart-table';
 import { ProductAttributesService } from '../../services/product-attributes.service';
@@ -25,11 +25,10 @@ export interface TreeNode {
 @Component({
   selector: 'ngx-product-attributes',
   templateUrl: './product-attributes.component.html',
-  styleUrls: ['./product-attributes.component.scss']
+  styleUrls: ['./product-attributes.component.scss'],
 })
-export class ProductAttributesComponent implements OnInit {
-
-  id : any;
+export class  ProductAttributesComponent implements OnInit {
+  id: any;
   loaded = false;
   loading = false;
   loadingList = false;

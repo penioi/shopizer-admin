@@ -1,0 +1,32 @@
+<h1>Upload catalog data</h1>
+
+<div class="form-group">
+  <input
+    type="file"
+    class="file-input"
+    (change)="onFileSelected($event)"
+    #fileUpload
+  />
+
+  <div class="file-upload">
+    <button
+      mat-mini-fab
+      color="primary"
+      class="upload-btn"
+      (click)="fileUpload.click()"
+    >
+    {{ file?.name || "Select file" }} 
+    </button>
+    <button
+      mat-mini-fab
+      color="primary"
+      class="upload-btn"
+      (click)="onFileUpload()"
+    >
+      Upload selected file
+    </button> <br>
+    
+    {{ message }}
+
+  </div>
+</div>

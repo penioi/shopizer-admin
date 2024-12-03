@@ -36,6 +36,9 @@ const routes: Routes = [{
     {
       path: 'types',
       loadChildren: 'app/pages/catalogue/types/types.module#TypesModule'
+    },{
+      path: 'archive',
+      loadChildren: 'app/pages/catalogue/archive/archive.module#ArchiveModule'
     },
   ]
 }];
