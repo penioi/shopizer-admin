@@ -10,6 +10,8 @@ import { CrudService } from '../../shared/services/crud.service';
 })
 export class OrdersService {
 
+
+
   constructor(
     private crudService: CrudService
   ) {
@@ -55,4 +57,9 @@ export class OrdersService {
   getTransactions(orderID): Observable<any> {
     return this.crudService.get('/v1/private/orders/' + orderID + '/payment/transactions');
   }
+  
+  updateOrderProducts(orderId, updatedProducts: any[]) {
+    return this.crudService.put('/v1/private/orders/' + orderId + "/products", updatedProducts);
+  }
+  
 }

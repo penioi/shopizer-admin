@@ -279,6 +279,8 @@
     "MANUFACTURER": "Manufacturer",
     "PRODUCT_TYPE": "Product type",
     "QUANTITY": "Quantity",
+    "MINIMUM_QUANTITY": "Minimum Quantity",
+    "MAXIMUM_QUANTITY": "Maximum Quantity",
     "PRODUCT_SHIPEABLE": "Product will be shipped",
     "PRODUCT_UPDATED": "Product updated.",
     "PRODUCT_CREATED": "Product created.",

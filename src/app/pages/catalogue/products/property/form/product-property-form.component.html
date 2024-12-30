@@ -8,7 +8,7 @@
         <button type="button" nbButton class="cancel_button" (click)="goToback()">{{ 'ORDER_FORM.CANCLE'
           | translate}}</button>
         <button type="submit" nbButton class="success_button" [nbSpinner]="loader" nbSpinnerSize="large"
-          nbSpinnerStatus="control" (click)="save()" [disabled]="!form.valid">{{ ( !loader ? 'COMMON.SAVE' : '' ) |
+          nbSpinnerStatus="control" (click)="save()" >{{ ( !loader ? 'COMMON.SAVE' : '' ) |
           translate }}</button>
       </div>
     </nb-card-header>

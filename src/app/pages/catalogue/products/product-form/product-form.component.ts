@@ -188,6 +188,8 @@ export class ProductFormComponent implements OnInit {
       type: this.product.type == null ? '' : this.product.type.code,
       price: this.product.price,
       quantity: this.product.quantity,
+      quantityOrderMinimum: this.product.quantityOrderMinimum,
+      quantityOrderMaximum: this.product.quantityOrderMaximum,
       productSpecifications: {
         weight: this.product.productSpecifications.weight,
         height: this.product.productSpecifications.height,
@@ -262,6 +264,13 @@ export class ProductFormComponent implements OnInit {
     return this.form.get('quantity');
   }
 
+  get quantityOrderMinimum() {
+    return this.form.get('quantityOrderMinimum');
+  }
+
+  get quantityOrderMaximum() {
+    return this.form.get('quantityOrderMaximum');
+  }
   get selectedLanguage() {
     return this.form.get('selectedLanguage');
   }
@@ -495,7 +504,7 @@ export class ProductFormComponent implements OnInit {
 
   private createForm() {
     this.form = this.fb.group({
-      sku: ['', [Validators.required, Validators.pattern(validators.alphanumeric)]],
+      sku: ['', [Validators.required, Validators.pattern(validators.alphanumericwithhyphen)]],
       visible: [false],
       dateAvailable: [new Date()],
       manufacturer: ['', [Validators.required]],
@@ -505,6 +514,8 @@ export class ProductFormComponent implements OnInit {
       timeBound: [false],
       price: ['', [Validators.required]],
       quantity: ['', [Validators.required, Validators.pattern(validators.number)]],
+      quantityOrderMinimum: [0, [ Validators.pattern(validators.number)]],
+      quantityOrderMaximum: [0, [ Validators.pattern(validators.number)]],
       // discountedPrice: [Validators.pattern(validators.number)],
       // percentageOff: [Validators.pattern(validators.number)],
       // rebatePrice: [Validators.required, Validators.pattern(validators.number)],

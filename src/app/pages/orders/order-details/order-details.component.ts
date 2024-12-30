@@ -65,6 +65,7 @@ export class OrderDetailsComponent implements OnInit {
     postalCode: '',
     phone: ''
   }
+  editingData: any;
   transactionType: string = ''
   orderID: any;
   defaultCountry: any;
@@ -77,13 +78,21 @@ export class OrderDetailsComponent implements OnInit {
 
 
   }
-  getOrderDetails() {
+
+  get orderDetails () {
+    return this.orderDetailsData;
+  }
+  set orderDetails(order) {
+    this.orderDetailsData = order;
+  }
+  initialiseOrderDetails() { 
     this.loadingList = true;
+
     this.ordersService.getOrderDetails(this.orderID)
       .subscribe(data => {
         this.loadingList = false;
         // console.log(data);
-        this.orderDetailsData = data;
+        this.orderDetailsData = data
         this.onBillingChange(data.billing.country, 0)
 
 
@@ -104,10 +113,62 @@ export class OrderDetailsComponent implements OnInit {
   ngOnInit() {
     if (localStorage.getItem('orderID')) {
       this.orderID = localStorage.getItem('orderID')
-      this.getOrderDetails();
+      this.initialiseOrderDetails();
     }
     this.getHistory();
+    this.editingData = {};
     this.getNextTransaction();
+   
+  }
+  getQuantityInput(id, quantity) {
+    if (!this.editingData[id]) {
+      this.editingData[id] = {}
+    }
+    this.editingData[id] = {
+      ...this.editingData[id],
+      quantity,
+    }
+  }
+  getPriceInput(id, price) {
+    if (!this.editingData[id]) {
+      this.editingData[id] = {}
+    }
+    this.editingData[id] = {
+      ...this.editingData[id],
+      price,
+    }
+  }
+  updateQuantity(event, id) {
+    this.editingData[id].orderedQuantity = event.target.value;
+    console.log(this.editingData)
+  }
+  updatePrice(event, id) {
+    this.editingData[id].price = event.target.value;
+    console.log(this.editingData)
+  }
+  applyChanges() {
+    console.log(this.editingData);
+    const updatedProducts = Object.keys(this.editingData).map(sku => {
+      const product = this.orderDetailsData.products.find(p => p.sku === sku);
+
+      const updatedProduct =  { ...product, ...this.editingData[sku] }; //update price and qtty
+      updatedProduct.price = updatedProduct.price.replace(/[^\d.-]/g, '');
+      return updatedProduct;
+    });
+    console.log('updatedProducts', updatedProducts);
+    this.ordersService.updateOrderProducts(this.orderID, updatedProducts).subscribe(
+      data => {
+        this.loadingList = false;
+        console.log(data);
+        this.orderDetailsData = data;
+        this.editingData = {};
+      });
+  }
+  hasKeys() {
+    return Object.keys(this.editingData).length > 0;
+  }
+  hasKey(id) {
+    return this.editingData[id];
   }
   getNextTransaction() {
     this.ordersService.getNextTransaction(this.orderID)
