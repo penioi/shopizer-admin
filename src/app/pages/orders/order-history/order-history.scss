@@ -1,6 +1,6 @@
 .history-box {
-  width: 800px;
-  height: 500px;
+  width: 1000px;
+  max-height: 800px;
   margin: auto;
   background: #fff;
   padding: 30px;
@@ -107,7 +107,6 @@
 
       tbody {
         display: block;
-        height: 340px;
         overflow-y: scroll;
         // width: 100%;
         scrollbar-width: none;

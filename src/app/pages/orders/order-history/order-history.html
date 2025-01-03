@@ -1,5 +1,4 @@
 <div class="history-box">
-
   <span class="titleBar">
     <span></span>
     <span class="title_text">{{'ORDER_FORM.HISTORY_LIST' | translate}}</span>
@@ -9,30 +8,40 @@
     <table cellpadding="0" cellspacing="0" id="print-section">
       <thead>
         <tr class="heading">
-          <th>
-            {{'ORDER_FORM.ORDER_STATUS' | translate}}
-          </th>
-          <th style="text-align:center">
-            {{'ORDER_FORM.DATE' | translate}}
-          </th>
-          <th>
-            {{'ORDER_FORM.COMMENT' | translate}}
-          </th>
+          <th>{{'ORDER_FORM.ORDER_STATUS' | translate}}</th>
+          <th style="text-align: center">{{'ORDER_FORM.DATE' | translate}}</th>
+          <th>{{'ORDER_FORM.COMMENT' | translate}}</th>
         </tr>
       </thead>
       <tbody>
         <tr class="item" *ngFor="let history of historyData">
-          <td>
-            {{history.orderStatus}}
+          <td>{{history.orderStatus}}</td>
+          <td style="text-align: center">
+            {{moment(history.date).format('yyyy-MM-DD')}}
           </td>
-          <td style="text-align:center">
-            {{moment(history.date).format('yyyy-DD-MM')}}
-          </td>
-          <td>
-            {{history.comments}}
-          </td>
+          <td>{{history.comments}}</td>
         </tr>
       </tbody>
     </table>
-  </div>
+  <table border="1" id="print-section-2">
+      <tr>
+        <th>Date</th>
+        <th>Product SKU</th>
+        <th>Old Price</th>
+        <th>New Price</th>
+        <th>Old Quantity</th>
+        <th>New Quantity</th>
+        <th>Changed by</th>
+      </tr>
+      <tr *ngFor="let historyItem of productHistory">
+        <td>{{moment(historyItem.history.dateCreated).format('yyyy-MM-DD HH:mm')}}</td>
+        <td>{{historyItem.sku}}</td>
+        <td>{{historyItem.history.productPriceOld}}</td>
+        <td>{{historyItem.history.productPrice}}</td>
+        <td>{{historyItem.history.productQuantityOld}}</td>
+        <td>{{historyItem.history.productQuantity}}</td>
+        <td>{{historyItem.history.user}}</td>
+      </tr>
+  </table>
+</div>
 </div>

@@ -182,7 +182,6 @@ export class OrderDetailsComponent implements OnInit {
   getHistory() {
     this.ordersService.getHistory(this.orderID)
       .subscribe(data => {
-        // console.log(data);
         this.historyListData = data;
       }, error => {
 
@@ -351,7 +350,7 @@ export class OrderDetailsComponent implements OnInit {
       });
   }
   showDialog(value) {
-    // console.log(value)
+    console.log(value)
     if (value == 1) {
       this.dialogService.open(OrderTransactionComponent, {
         context: {
@@ -367,7 +366,8 @@ export class OrderDetailsComponent implements OnInit {
     } else if (value == 3) {
       this.dialogService.open(OrderHistoryComponent, {
         context: {
-          historyData: this.historyListData
+          historyData: this.historyListData,
+          orderData: this.orderDetailsData,
         },
       });
     }

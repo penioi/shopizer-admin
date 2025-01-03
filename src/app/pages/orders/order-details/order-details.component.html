@@ -271,7 +271,6 @@
                   <table border="1">
                     <thead>
                       <tr>
-                        <th>Remove</th>
                         <th>{{'ORDER_FORM.ITEM' | translate}}</th>
                         <th>{{'ORDER_FORM.QUANTITY' | translate}}</th>
                         <th>{{'ORDER_FORM.PRICE' | translate}}</th>
@@ -280,7 +279,6 @@
                     </thead>
                     <tbody>
                       <tr *ngFor="let product of orderDetailsData.products">
-                        <td> <span>&#10799;</span> </td>
                         <td><span>{{product.productName}} -</span><span class="blueTxt">{{product.sku}}</span></td>
                         <td (click)="getQuantityInput(product.sku, product.orderedQuantity)">
 
@@ -294,13 +292,12 @@
                         <td [ngClass]="hasKey(product.sku) ? 'strikethrough' : ''" class="boldTxt">{{product.subTotal}}</td>
                       </tr>
                       <tr *ngFor="let total of orderDetailsData.totals">
-                
-                        <td [ngClass]="hasKeys() ? 'strikethrough' : ''"  class="left" colspan="4">{{total.module}}</td>
+                        <td [ngClass]="hasKeys() ? 'strikethrough' : ''"  class="left" colspan="3">{{total.module}}</td>
                         <td [ngClass]="hasKeys() ? 'strikethrough' : ''" class="boldTxt">£{{total.value}}</td>
                       </tr>
                     </tbody>
                   </table>
-                  <button (click)="applyChanges()">Save changes</button>
+                  <button (click)="applyChanges()" [disabled]="!hasKeys()">Save changes</button>
                 </div>
                 <div class="statusSec">
                   <label class="terms">{{'ORDER_FORM.TERMS_CONDITIONS' | translate}}: <span class="boldTxt">{{orderDetailsData.customerAgreed}}</span></label>
