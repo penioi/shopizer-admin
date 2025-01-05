@@ -282,7 +282,7 @@
                         <td><span>{{product.productName}} -</span><span class="blueTxt">{{product.sku}}</span></td>
                         <td (click)="getQuantityInput(product.sku, product.orderedQuantity)">
 
-                          <span *ngIf="editingData[product.sku]?.quantity; else notEditingQuantity"><input (change)="updateQuantity($event, product.sku)" class="editable" type="text" value={{product.orderedQuantity}}></span>
+                          <span *ngIf="editingData[product.sku]?.quantity != undefined; else notEditingQuantity"><input (change)="updateQuantity($event, product.sku)" class="editable" type="text" value={{product.orderedQuantity}}></span>
                           <ng-template #notEditingQuantity>{{product.orderedQuantity}}</ng-template> 
                         </td>
                         <td (click)="getPriceInput(product.sku, product.price)" class="boldTxt">

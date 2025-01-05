@@ -12,9 +12,7 @@ export class OrdersService {
 
 
 
-  constructor(
-    private crudService: CrudService
-  ) {
+  constructor( private crudService: CrudService ) {
   }
 
   getOrders(params): Observable<any> {
@@ -28,16 +26,16 @@ export class OrdersService {
     return this.crudService.get('/v1/private/orders/' + orderID);
   }
   getCountry(): Observable<any> {
-    return this.crudService.get('/v1/country')
+    return this.crudService.get('/v1/country');
   }
   getBillingZone(value): Observable<any> {
-    return this.crudService.get('/v1/zones?code=' + value)
+    return this.crudService.get('/v1/zones?code=' + value);
   }
   getShippingZone(value): Observable<any> {
-    return this.crudService.get('/v1/zones?code=' + value)
+    return this.crudService.get('/v1/zones?code=' + value);
   }
   getHistory(orderID): Observable<any> {
-    return this.crudService.get('/v1/private/orders/' + orderID + '/history')
+    return this.crudService.get('/v1/private/orders/' + orderID + '/history');
   }
   addHistory(orderID, param): Observable<any> {
     return this.crudService.post('/v1/private/orders/' + orderID + '/history', param);
@@ -57,9 +55,7 @@ export class OrdersService {
   getTransactions(orderID): Observable<any> {
     return this.crudService.get('/v1/private/orders/' + orderID + '/payment/transactions');
   }
-  
   updateOrderProducts(orderId, updatedProducts: any[]) {
-    return this.crudService.put('/v1/private/orders/' + orderId + "/products", updatedProducts);
+    return this.crudService.put('/v1/private/orders/' + orderId + '/products', updatedProducts);
   }
-  
 }

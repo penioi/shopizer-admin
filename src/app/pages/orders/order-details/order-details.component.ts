@@ -144,13 +144,10 @@ export class OrderDetailsComponent implements OnInit {
   }
   updatePrice(event, id) {
     this.editingData[id].price = event.target.value;
-    console.log(this.editingData)
   }
   applyChanges() {
-    console.log(this.editingData);
     const updatedProducts = Object.keys(this.editingData).map(sku => {
       const product = this.orderDetailsData.products.find(p => p.sku === sku);
-
       const updatedProduct =  { ...product, ...this.editingData[sku] }; //update price and qtty
       updatedProduct.price = updatedProduct.price.replace(/[^\d.-]/g, '');
       return updatedProduct;
