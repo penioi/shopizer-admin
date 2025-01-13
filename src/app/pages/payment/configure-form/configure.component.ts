@@ -8,8 +8,8 @@ let paypalData = require('../services/paypal.json');
 let beanStreamData = require('../services/beanstream.json');
 let stripeData = require('../services/stripe.json');
 let paytmData = require('../services/paytm.json');
-
 let braintreeData = require('../services/braintree.json');
+let invoiceData = require('../services/invoice.json');
 import { PaymentService } from '../services/payment.service';
 import { NbDateAdapterService } from '@nebular/theme';
 @Component({
@@ -61,24 +61,27 @@ export class ConfigureComponent implements OnInit {
 
     this.formData = [];
 
-    if (paymenttype == 'moneyorder') {
+    if (paymenttype === 'moneyorder') {
       this.formData = moneyorder;
-      this.paymentType = "Money Order";
-    } else if (paymenttype == 'paypal-express-checkout') {
+      this.paymentType = 'Money Order';
+    } else if (paymenttype === 'paypal-express-checkout') {
       this.formData = paypalData;
-      this.paymentType = "PayPal Express Checkout";
-    } else if (paymenttype == 'beanstream') {
+      this.paymentType = 'PayPal Express Checkout';
+    } else if (paymenttype === 'beanstream') {
       this.formData = beanStreamData;
-      this.paymentType = "Beanstream";
-    } else if (paymenttype == 'stripe') {
+      this.paymentType = 'Beanstream';
+    } else if (paymenttype === 'stripe') {
       this.formData = stripeData;
-      this.paymentType = "Stripe";
-    } else if (paymenttype == 'paytm') {
+      this.paymentType = 'Stripe';
+    } else if (paymenttype === 'paytm') {
       this.formData = paytmData;
-      this.paymentType = "Paytm";
-    }else if (paymenttype == 'braintree') {
+      this.paymentType = 'Paytm';
+    } else if (paymenttype === 'braintree') {
       this.formData = braintreeData;
-      this.paymentType = "Braintree";
+      this.paymentType = 'Braintree';
+    } else if (paymenttype === 'invoice') {
+      this.formData = invoiceData;
+      this.paymentType = 'Invoice';
     }
     this.getPaymentConfigureDetails(paymenttype)
   }
@@ -96,9 +99,9 @@ export class ConfigureComponent implements OnInit {
       }, error => {
         if(error.status === 404) {// payment not found
           this.error = error;
-          this.errorService.error("ERROR.SYSTEM_ERROR_TEXT", 404);
+          this.errorService.error('ERROR.SYSTEM_ERROR_TEXT', 404);
         } else {
-          this.errorService.error("ERROR.SYSTEM_ERROR_TEXT", 500);
+          this.errorService.error('ERROR.SYSTEM_ERROR_TEXT', 500);
         }
         this.loadingList = false;
       });
@@ -109,11 +112,11 @@ export class ConfigureComponent implements OnInit {
     this.formData.map(async (value, i) => {
       console.log('Value of i ' + i);
       console.log('Value of value ' + value);
-      if (value.type == 'radio') {
+      if (value.type === 'radio') {
         let varType = Array.isArray(this.paymentData[value.objectKey][value.name])
         this.formData[i].value = varType ? this.paymentData[value.objectKey][value.name][0] : this.paymentData[value.objectKey][value.name]
-      } else if (value.type == 'groupcheckbox') {
-        if (value.objectKey == '') {
+      } else if (value.type === 'groupcheckbox') {
+        if (value.objectKey === '') {
         } else {
           this.paymentData[value.objectKey][value.name].map((option) => {
             let a = value.optionData.findIndex((a) => a.value === option);
@@ -121,7 +124,7 @@ export class ConfigureComponent implements OnInit {
           })
         }
       } else {
-        this.formData[i].value = value.objectKey == '' ? this.paymentData[value.name] : this.paymentData[value.objectKey][value.name]
+        this.formData[i].value = value.objectKey === '' ? this.paymentData[value.name] : this.paymentData[value.objectKey][value.name]
       }
     });
   }
@@ -134,16 +137,18 @@ export class ConfigureComponent implements OnInit {
     });
     // console.log(param)
     let body: any = {};
-    if (paymenttype == "stripe") {
+    if (paymenttype === 'stripe') {
       body = { 'code': paymenttype, 'active': param.active, 'defaultSelected': param.defaultSelected, 'integrationKeys': { 'publishableKey': param.publishableKey, 'secretKey': param.secretKey, 'transaction': param.transaction }, 'integrationOptions': null }
-    } else if (paymenttype == 'moneyorder') {
+    } else if (paymenttype === 'moneyorder') {
       body = { 'code': paymenttype, 'active': param.active, 'defaultSelected': param.defaultSelected, 'integrationKeys': { 'address': param.address }, 'integrationOptions': null }
-    } else if (paymenttype == 'paypal-express-checkout') {
+    } else if (paymenttype === 'paypal-express-checkout') {
       body = { 'code': paymenttype, 'active': param.active, 'defaultSelected': param.defaultSelected, 'integrationKeys': { 'api': param.api, 'signature': param.signature, 'transaction': param.transaction, 'username': param.username }, 'integrationOptions': null }
-    } else if (paymenttype == 'braintree') {
+    } else if (paymenttype === 'braintree') {
       body = { 'code': paymenttype, 'active': param.active, 'defaultSelected': param.defaultSelected, 'integrationKeys': { 'merchant_id': param.merchant_id, 'public_key': param.public_key, 'private_key': param.private_key, 'tokenization_key': param.tokenization_key, 'transaction': param.transaction }, 'integrationOptions': null }
-    } else if (paymenttype == 'beanstream') {
+    } else if (paymenttype === 'beanstream') {
       body = { 'code': paymenttype, 'active': param.active, 'defaultSelected': param.defaultSelected, 'integrationKeys': { 'merchantid': param.merchantid, 'username': param.username, 'password': param.password, 'transaction': param.transaction }, 'integrationOptions': null }
+    } else if (paymenttype === 'invoice') {
+      body = { 'code': paymenttype, 'active': param.active, 'defaultSelected': param.defaultSelected, 'integrationKeys': { 'address': param.address }, 'integrationOptions': null }
     }
     this.savePayment(body);
   }
